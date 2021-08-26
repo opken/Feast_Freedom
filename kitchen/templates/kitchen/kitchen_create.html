@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h2>Kitchen Create</h2>
+    <form action="{% url 'kitchen:kitchen_create' user_id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <h2>Menu Items</h2>
+        {{ formset.management_form }}
+        {% for f in formset.forms %}
+        <div class="table">
+            <table class="no_error">
+                {{ f.as_p }}
+            </table>
+        </div>
+        {% endfor %}
+        <input class="btn btn-primary" type="button" value="Add More Item" id="add_more">
+        <br />
+        <br>
+        <input class="btn btn-success" type="submit" value="Create Kitchen">
+        <br>
+        <a href="{% url 'kitchen:kitchen_list' %}">Cancel</a>
+    </form>
+{% endblock %}

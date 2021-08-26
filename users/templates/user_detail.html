@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<ul>
+  <li>Username: {{ user.username }}</li>
+  <li>Email: {{ user.email }}</li>
+    {% if user.is_customer %}
+        <li>Security Question 1: {{ user.sq1 }} - Answer: {{ user.aq1 }}</li>
+        <li>Security Question 2: {{ user.sq2 }} - Answer: {{ user.aq2 }}</li>
+        <li>IDENTITY : Normal Customer</li>
+      {% elif user.is_kitchen %}
+        <li>IDENTITY : Kitchen <a href="{% url 'kitchen:kitchen_detail' user.id %}"> Details </a></li>
+      {% endif %}
+
+</ul>
+
+{% endblock %}

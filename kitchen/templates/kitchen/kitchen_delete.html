@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Kitchen Detail{% endblock title %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+
+        <h2>Are you sure to delete product: {{ object.name }} ?</h2>
+        <button type="submit" value="Save">Yes Delete</button>
+        <a href="{% url 'kitchen:kitchen_list' %}" > Cancel </a>
+    </form>
+{% endblock content %}

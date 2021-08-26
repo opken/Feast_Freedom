@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Menu Detail{% endblock title %}
+
+{% block content %}
+
+    {% if user == kitchen.user %}
+        <h3><a href="{% url 'kitchen:menu_add_item' kitchen.user_id %}">Add Item to Menu</a></h3>
+    {% endif %}
+    <h2>Welcome to Kitchen: {{ kitchen.name }} </h2>
+    <h3> - This is our Menu - </h3>
+
+    {% if menu %}
+        <table>
+            {% for item in menu %}
+                <tr>
+                    <td style="padding-right:60px">Name: {{ item.name }} </td>
+                    <td style="padding-right:10px">Price: ($){{ item.price }} </td>
+                    <td style="padding-right:10px">Vegan: {{ item.vegan }} </td>
+                    <td style="padding-right:10px"><a href="{% url 'kitchen:menu_update_item' item.id %}">Edit </a></td>
+                    <td><a href="{% url 'kitchen:menu_delete_item' item.id %}">Delete </a></td>
+                </tr>
+
+
+            {% endfor %}
+        </table>
+    {% else %}
+        <p> No items in menu yet!</p>
+    {% endif %}
+
+
+{% endblock content %}

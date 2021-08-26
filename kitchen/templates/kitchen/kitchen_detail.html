@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Kitchen Detail{% endblock title %}
+
+{% block content %}
+
+    {% if user == kitchen.user %}
+        <h3><a href="{% url 'kitchen:kitchen_update' kitchen.user_id %}">Update Kitchen Information</a></h3>
+        <h3><a href="{% url 'kitchen:menu_detail' kitchen.user_id %}">Edit Menu</a></h3>
+
+
+    {% endif %}
+
+
+    <h2>Welcome to Kitchen: {{ kitchen.name }} </h2>
+    <h3> - Our Information - </h3>
+    <li>Working Days:
+        {% for day in kitchen.days.all %}
+            <b> {{ day }}</b>
+        {% endfor %}
+    </li>
+
+    <li>Working Hours: <b> {{ kitchen.start_time }} - {{ kitchen.end_time }} </b></li>
+    </br>
+    <h3> - This is our Menu - </h3>
+
+     <table>
+        {% for item in menu %}
+            <tr>
+                <td style="padding-right:60px">Name: {{ item.name }} </td>
+                <td style="padding-right:10px">Price: ($){{ item.price }} </td>
+                <td>Vegan: {{ item.vegan }} </td>
+                <td>
+                     <form action="{% url 'cart:cart_add' item.id %}" method="post">
+                         {{ cart_product_form }}
+                         {% csrf_token %}
+                        <input type="submit" value="Add to cart">
+                 </form>
+                </td>
+
+            </tr>
+
+        {% endfor %}
+     </table>
+
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Kitchen List{% endblock title %}
+
+{% block content %}
+
+
+    {% if kitchen_list %}
+        <table>
+        {% for kitchen in kitchen_list %}
+            <tr><td>
+                <a href="{% url 'kitchen:kitchen_detail' kitchen.user_id %}">
+                    <image src="/media/{{ kitchen.image }}" style="width:128px;height:128px;"></image>
+                    Kitchen: {{ kitchen.name }}
+                </a>
+            </td></tr>
+
+        {% endfor %}
+        </table>
+    {% else %}
+        <p>No kitchen are available.</p>
+    {% endif %}
+{% endblock content %}

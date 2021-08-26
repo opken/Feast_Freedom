@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>{{ user_type | title }} - Registration</h1>
+<form action="{% if user_type == 'kitchen' %} {% url 'users:kitchen_signup' %} {% else %} {% url 'users:customer_signup' %} {% endif %}" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    {% if user_type == 'kitchen' %}
+        <input type="submit" value="Next">
+        <a href="{% url 'kitchen:kitchen_list' %}">Cancel</a>
+    {% else %} 
+        <input type="submit" value="Signup">
+    {% endif %}
+</form>
+{% endblock %}
